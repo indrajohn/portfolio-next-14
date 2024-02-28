@@ -2,32 +2,75 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+
+
+@layer base {
+  html {
+    @apply scroll-smooth;
   }
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background: #1f242d;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+.menu-nav .active {
+  @apply text-[#0ef];
+}
+
+@keyframes up-down {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-30px);
+    /* Adjust this value to control the distance of the animation */
+  }
+}
+
+.animate-up-down {
+  animation: up-down 3s infinite;
+  /* Adjust the animation duration as needed */
+}
+
+
+div.vertical-line {
+  width: 1px;
+  /* Line width */
+  background-color: #0ef;
+  /* Line color */
+  height: 100%;
+  /* Override in-line if you want specific height. */
+  float: left;
+  /* Causes the line to float to left of content. 
+    You can instead use position:absolute or display:inline-block
+    if this fits better with your design */
+}
+
+.scroll-to-top {
+  display: none;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes bounce {
+
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+
+  40% {
+    transform: translateY(-10px);
+  }
+
+  60% {
+    transform: translateY(-5px);
   }
 }
