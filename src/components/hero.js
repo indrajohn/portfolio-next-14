@@ -133,10 +133,11 @@ function Hero() {
             <Image
               src="/img/photo_profile_transparent.png"
               width={500}
-              priority
               height={500}
+              priority
               className="animate-up-down"
               alt="Picture of the author"
+              sizes="(max-width: 768px) 100vw, 500px"
             />
           </div>
         </div>
