@@ -73,12 +73,13 @@ function ContactPage() {
       <div class=" text-white p-10">
         <div className="md:grid md:grid-cols-2 space-y-4 space-x-4">
           <div>
-            <h2 class="text-6xl font-bold mb-4">Let's Work Together</h2>
+            <h2 class="text-6xl font-bold mb-4">Let&apos;s Work Together</h2>
             <p class="mb-8 text-4xl">Get In Touch With Me</p>
-            <p class="mb-8">
-              I'm interested in freelance opportunities - especially ambitious
-              or large projects. However, if you have other request or question,
-              don't hesitate to use the form.
+
+            <p className="mb-8">
+              I&apos;m interested in freelance opportunities - especially
+              ambitious or large projects. However, if you have other requests
+              or questions, don&apos;t hesitate to use the form.
             </p>
           </div>
           <div>
