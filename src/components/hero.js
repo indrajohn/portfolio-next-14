@@ -17,7 +17,7 @@ function Hero() {
                 Hello, It&apos;s me
               </h2>
               <h1
-                className="text-3xl font-bold"
+                className="text-3xl md:text-6xl font-bold"
                 data-aos="fade-right"
                 data-aos-offset="300"
                 data-aos-easing="ease-in-sine"
@@ -25,6 +25,14 @@ function Hero() {
               >
                 Yoseph Indra John Saputra
               </h1>
+              <h2
+                className="text-2xl font-bold my-3"
+                data-aos="zoom-out-down"
+                data-aos-anchor-placement="top-bottom"
+                data-aos-duration="1500"
+              >
+                Full stack Developer | API Development | Node.js | React.js
+              </h2>
               <span
                 className="mt-3"
                 data-aos="fade-right"

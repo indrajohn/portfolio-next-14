@@ -5,7 +5,7 @@ import Hero from "@/components/hero";
 import PortfolioPage from "@/components/latest-project";
 import NavBar from "@/components/navbar";
 import Timeline from "@/components/timeline";
-
+import { motion } from "framer-motion"
 export default function Home() {
   return (
     <main>
