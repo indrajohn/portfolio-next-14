@@ -76,7 +76,7 @@ const Timeline = () => {
                 } relative`}
               >
                 {index % 2 === 0 && (
-                  <div className="rounded-lg shadow-lg p-4 sm:p-6 bg-white text-black">
+                  <div className="rounded-lg shadow-lg p-4 sm:p-6 bg-[#373f4e] text-slate-300">
                     <h3 className="font-bold text-lg">{milestone.year}</h3>
                     <p className="font-semibold mt-2">{milestone.job}</p>
                     <ul className="m-4 list-disc">
@@ -99,7 +99,7 @@ const Timeline = () => {
                 } relative`}
               >
                 {index % 2 !== 0 && (
-                  <div className="rounded-lg shadow-lg p-4 sm:p-6 bg-white text-black">
+                  <div className="rounded-lg shadow-lg p-4 sm:p-6 bg-[#373f4e] text-slate-300">
                     <h3 className="font-bold text-lg">{milestone.year}</h3>
                     <p className="font-semibold mt-2">{milestone.job}</p>
                     <ul className="m-4 list-disc">

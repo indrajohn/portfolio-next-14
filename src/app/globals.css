@@ -15,6 +15,70 @@ body {
   background: #1f242d;
 }
 
+.octagon-container {
+  position: relative;
+  width: 500px;
+  /* Adjust to match the image size */
+  height: 500px;
+  /* Adjust to match the image size */
+  margin: auto;
+  overflow: visible;
+  /* This allows elements to overflow outside of the container */
+}
+
+.octagon-container::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  clip-path: polygon(30% 5%,
+      70% 5%,
+      95% 30%,
+      95% 70%,
+      70% 95%,
+      30% 95%,
+      5% 70%,
+      5% 30%);
+  background: #0ef;
+  z-index: 1;
+}
+
+.octagon-container-two::before {
+  content: '';
+  position: absolute;
+  margin: auto;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 95%;
+  height: 95%;
+  clip-path: polygon(30% 5%,
+      70% 5%,
+      95% 30%,
+      95% 70%,
+      70% 95%,
+      30% 95%,
+      5% 70%,
+      5% 30%);
+  background: #1f242d;
+  z-index: 1;
+}
+
+.octagon-image-wrapper {
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%, -50%);
+  width: 70%;
+  height: 100%;
+  z-index: 2;
+}
+
+.octagon-image-wrapper img {
+  object-fit: cover;
+}
+
 .menu-nav .active {
   @apply text-[#0ef];
 }
@@ -28,13 +92,11 @@ body {
 
   50% {
     transform: translateY(-30px);
-    /* Adjust this value to control the distance of the animation */
   }
 }
 
 .animate-up-down {
   animation: up-down 3s infinite;
-  /* Adjust the animation duration as needed */
 }
 
 

@@ -5,23 +5,25 @@ function AboutMePage() {
   return (
     <section
       id="about"
-      className="h-screen"
+      className="h-screen md:mt-48"
       data-aos="zoom-in"
       data-aos-duration="1500"
     >
       <div className="w-full flex">
-        <div className="w-0 md:w-1/2 h-1/2">
-          <div className="flex justify-center ">
-            <Image
-              src="/img/photo_profile-transparent.png"
-              width={500}
-              height={500}
-              priority
-              alt="Picture of the author"
-            />
+        <div className="md:octagon-container w-0 md:w-1/2 h-1/2">
+          <div className="md:octagon-container-two md:w-1/2 h-1/2">
+            <div className="md:octagon-image-wrapper">
+              <Image
+                src="/img/photo_profile-transparent.png"
+                width={500}
+                height={500}
+                priority
+                alt="Picture of the author"
+              />
+            </div>
           </div>
         </div>
-        <div className="w-full md:w-1/2 text-white flex">
+        <div className="w-full md:w-1/2 text-slate-300 flex">
           <div className="flex items-center h-full justify-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
             <div className="flex flex-col">
               <div className="flex ">
@@ -32,7 +34,6 @@ function AboutMePage() {
                   </span>
                 </h1>
               </div>
-              {/* <h2 className="text-xl font-bold">Fullstack Developer!</h2> */}
 
               <span className="mt-3">
                 As an accomplished Fullstack Developer with over 5 years of

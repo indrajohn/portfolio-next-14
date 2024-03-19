@@ -5,9 +5,9 @@ function Hero() {
   return (
     <section id="home" data-aos="zoom-in" data-aos-duration="1500">
       <div className="w-full h-[calc(100vh-64px)] flex">
-        <div className="w-full md:w-1/2 text-white flex">
+        <div className="w-full md:w-1/2 text-slate-300 flex">
           <div className="flex items-center h-full justify-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col">
+            <div className="flex flex-col space-y-4">
               <h2
                 className="text-xl font-bold"
                 data-aos="zoom-out-down"
@@ -17,7 +17,7 @@ function Hero() {
                 Hello, It&apos;s me
               </h2>
               <h1
-                className="text-3xl md:text-6xl font-bold"
+                className="text-4xl md:text-5xl font-bold"
                 data-aos="fade-right"
                 data-aos-offset="300"
                 data-aos-easing="ease-in-sine"
@@ -26,7 +26,7 @@ function Hero() {
                 Yoseph Indra John Saputra
               </h1>
               <h2
-                className="text-2xl font-bold my-3"
+                className="text-2xl md:text-2xl font-bold"
                 data-aos="zoom-out-down"
                 data-aos-anchor-placement="top-bottom"
                 data-aos-duration="1500"
@@ -42,7 +42,7 @@ function Hero() {
                 working as a fullstack developer. I can build and consume APIs,
                 set up databases, and love Node.js, WordPress, React.js.
               </span>
-              <span className="flex text-[20px] mt-3">
+              <span className="flex text-[20px]">
                 <a
                   className="border-2 border-[#0ef] rounded-full ease-in duration-300 hover:cursor-pointer p-1 mx-1 inline-flex justify-center hover:bg-[#90CAF9]"
                   href="https://www.facebook.com/indra.jhon.1"

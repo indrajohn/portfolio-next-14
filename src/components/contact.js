@@ -35,11 +35,13 @@ function ContactPage() {
         setToastType("success");
         e.target.reset();
       } else {
-        setToastMessage("Error sending data.");
+        setToastMessage("Error sending data. \nPlease try again later...");
         setToastType("error");
       }
     } catch (error) {
-      setToastMessage("There was an error sending the data.");
+      setToastMessage(
+        "There was an error sending the data.\nPlease try again later..."
+      );
       setToastType("error");
     } finally {
       setLoading(false);
@@ -62,7 +64,7 @@ function ContactPage() {
       id="contact"
       data-aos="zoom-in"
       data-aos-duration="1500"
-      className="bg-[#1f242d] min-h-screen text-white p-6"
+      className="bg-[#1f242d] min-h-screen text-slate-300 p-6"
     >
       <div className="text-center m-8">
         <h1 className="text-3xl font-bold">
@@ -70,11 +72,13 @@ function ContactPage() {
           <span className="text-3xl font-bold text-[#0ef] mx-2">Me</span>
         </h1>
       </div>
-      <div class=" text-white p-10">
+      <div className=" text-slate-300 p-10">
         <div className="md:grid md:grid-cols-2 space-y-4 space-x-4">
           <div>
-            <h2 class="text-6xl font-bold mb-4">Let&apos;s Work Together</h2>
-            <p class="mb-8 text-4xl">Get In Touch With Me</p>
+            <h2 className="text-6xl font-bold mb-4">
+              Let&apos;s Work Together
+            </h2>
+            <p className="mb-8 text-4xl">Get In Touch With Me</p>
 
             <p className="mb-8">
               I&apos;m interested in freelance opportunities - especially
@@ -84,14 +88,14 @@ function ContactPage() {
           </div>
           <div>
             <form
-              class="space-y-4 bg-[#373f4e] p-8 rounded-lg"
+              className="space-y-4 bg-[#373f4e] p-8 rounded-lg"
               onSubmit={handleSubmit}
             >
               <div className="md:pt-8">
                 <input
                   type="text"
                   placeholder="Enter your name"
-                  class="w-full bg-transparent border-b-2 border-white text-white placeholder-gray-300 p-2 focus:outline-none focus:border-gray-300"
+                  className="w-full bg-transparent border-b-2 border-white text-slate-300 placeholder-gray-300 p-2 focus:outline-none focus:border-gray-300"
                 />
               </div>
 
@@ -99,7 +103,7 @@ function ContactPage() {
                 <input
                   type="email"
                   placeholder="Enter email address"
-                  class="w-full bg-transparent border-b-2 border-white text-white placeholder-gray-300 p-2 focus:outline-none focus:border-gray-300"
+                  className="w-full bg-transparent border-b-2 border-white text-slate-300 placeholder-gray-300 p-2 focus:outline-none focus:border-gray-300"
                 />
               </div>
 
@@ -107,14 +111,14 @@ function ContactPage() {
                 <input
                   type="text"
                   placeholder="Subject"
-                  class="w-full bg-transparent border-b-2 border-white text-white placeholder-gray-300 p-2 focus:outline-none focus:border-gray-300"
+                  className="w-full bg-transparent border-b-2 border-white text-slate-300 placeholder-gray-300 p-2 focus:outline-none focus:border-gray-300"
                 />
               </div>
 
               <div>
                 <textarea
                   placeholder="Write me a message"
-                  class="w-full bg-transparent border-b-2 border-white text-white placeholder-gray-300 p-2 focus:outline-none focus:border-gray-300"
+                  className="w-full bg-transparent border-b-2 border-white text-slate-300 placeholder-gray-300 p-2 focus:outline-none focus:border-gray-300"
                   rows="4"
                 ></textarea>
               </div>
@@ -122,11 +126,21 @@ function ContactPage() {
               <div>
                 <button
                   type="submit"
-                  class="bg-teal-500 text-white px-6 py-2 rounded-full hover:bg-teal-600 focus:outline-none focus:bg-teal-600"
+                  disabled={loading}
+                  className="bg-teal-500 text-slate-100 px-6 py-2 rounded-full hover:bg-teal-600 focus:outline-none focus:bg-teal-600"
                 >
-                  Send
+                  {loading ? "Loading..." : "Send"}
                 </button>
               </div>
+              {toastMessage && (
+                <div
+                  className={`toast-message flex flex-row items-center justify-center rounded-full p-2 m-4 ${
+                    toastType === "success" ? "bg-green-300" : "bg-red-400"
+                  }`}
+                >
+                  {toastMessage}
+                </div>
+              )}
             </form>
           </div>
         </div>
@@ -135,7 +149,7 @@ function ContactPage() {
     //   id="contact"
     //   data-aos="zoom-in"
     //   data-aos-duration="1500"
-    //   className="bg-[#1f242d] min-h-screen text-white p-6"
+    //   className="bg-[#1f242d] min-h-screen text-slate-300 p-6"
     // >
     //   <div className="text-center m-8">
     //     <h1 className="text-3xl font-bold">
@@ -241,7 +255,7 @@ function ContactPage() {
 
     //       <div className="flex items-center justify-between">
     //         <button
-    //           className="bg-[#0ef] hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+    //           className="bg-[#0ef] hover:bg-blue-700 text-slate-300 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
     //           type="submit"
     //           disabled={loading}
     //         >
