@@ -1,112 +1,127 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useLayoutProvider } from "@/context/myContext";
 
-function PortfolioDetailsComponents({ slug }) {
-  const portfolioList = [
-    {
-      id: 1,
-      name: "Euna Italian Restaurant",
-      slug: "euna-italian-restaurant",
-      img: "/img/portfolio/euna.png",
-      alt: "Euna Italian Restaurant",
-      link: "https://demo-euna.indrajohn.tech/",
-      desc: "Euna Italian Restaurant is a destination for authentic Italian cuisine, strategically located in the culinary landscape of New Zealand. The restaurant aims to offer a gastronomic experience that transcends the norm, fusing traditional Italian recipes with a touch of modern flair. I had the honor of spearheading a multidimensional project that encompassed brand development, website creation, digital marketing, and customer experience enhancement for Euna.",
-      frontend: "Front end : Wordpress",
-      backend: "Backend: Wordpress",
-    },
-    {
-      id: 2,
-      name: "Armada Orient Furniture",
-      slug: "armada-orient-furniture",
-      img: "/img/portfolio/armadaorient.png",
-      alt: "Armada Orient",
-      link: "https://armadaorient.com/",
-      desc: "In this project, I collaborated with Armada Orient Furniture, a boutique supplier based in Solo, Indonesia, to build their digital presence and streamline their customer experience. Leveraging the company's core values of personalized service and cultural richness, the project involved showcasing their diverse product lines—from antiques and recycled timber to handicrafts and building materials—on an intuitive platform. Additionally, we optimized their supply chain logistics, helping both the company and their clients focus more on what they do best: selling and purchasing quality, authentic furniture and home accessories. This project served as a perfect blend of traditional craftsmanship and modern business solutions.",
-      frontend: "Front end : Wordpress",
-      backend: "Backend: Wordpress",
-    },
-    {
-      id: 3,
-      name: "GBI Miracle Service Sydney",
-      slug: "gbi-miracle-services-sydney",
-      img: "/img/portfolio/gbi_miracle_service_sydney.png",
-      alt: "GBI Miracle Service Sydney",
-      link: "https://www.gbimssydney.org.au/",
-      desc: "GBI Miracle Service Sydney is a faith-based organization offering various religious services, community outreach programs, and spiritual growth opportunities. For this project, my team and I were commissioned to bolster the organization's digital presence, improve their online communication, and provide technical solutions for a more seamless virtual service experience. ",
-      frontend: "Front end : Next Js",
-      backend: "Backend: Java (Spring boot)",
-    },
-    {
-      id: 4,
-      name: "Hana Bank Indonesia",
-      slug: "hana-bank-indonesia",
-      img: "/img/portfolio/hana_bank.png",
-      alt: "Hana Bank Indonesia",
-      link: "https://www.hanabank.co.id/",
-      desc: "Hana Bank Indonesia, a prominent financial institution in Indonesia, embarked on an ambitious digital transformation journey to modernize its services and foster greater customer engagement. I had the privilege to lead a team of experts dedicated to redesigning the bank's digital ecosystem, focusing on user experience, mobile banking solutions, and cybersecurity enhancements.",
-      frontend: "Front end and CMS : Next js",
-      backend: "Backend: Java (Spring boot)",
-    },
-    {
-      id: 5,
-      name: "Indra Wedding",
-      slug: "indra-wedding",
-      img: "/img/portfolio/indra_wedding.png",
-      alt: "Indra Wedding",
-      link: "https://wedding.indrajohn.com.au/",
-      desc: "Indra Wedding is not just a website; it's a digital chronicle of a lifetime event. Serving as a comprehensive platform for my own wedding, the site aimed to streamline the planning process, keep guests informed, and create a lasting memento of this significant milestone. From RSVPs and event schedules to a gallery of cherished moments, Indra Wedding encapsulates the joy and excitement of matrimony in the modern age.",
-      frontend: "Front end: Next js",
-      backend: "Backend: Next js (Prisma)",
-    },
-    {
-      id: 6,
-      name: "Murni Wedding",
-      slug: "murni-wedding",
-      img: "/img/portfolio/murni_wedding.png",
-      alt: "Murni Wedding",
-      link: "https://murniwedding.indrajohn.com.au/",
-      desc: "Murni Wedding served as the digital centerpiece for the wedding of my wife's sister. The website was designed to encapsulate the elegance and significance of the event while providing all the essential details for guests. From RSVP management and event scheduling to heartfelt stories and photo galleries, the platform became a one-stop source for all things related to this joyful occasion.",
-      frontend: "Front end: Next js",
-      backend: "Backend: Next js (Prisma)",
-    },
-  ];
-  const [data, setData] = useState({});
+function PortfolioDetailsComponent({ slug }) {
+  const { portfolioList } = useLayoutProvider();
+  const [currentProject, setCurrentProject] = useState(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [zoomedImageSrc, setZoomedImageSrc] = useState("");
+  const openModal = (imgSrc) => {
+    setIsModalOpen(true);
+    setZoomedImageSrc(imgSrc); // Set the source of the image to be zoomed
+  };
+  const closeModal = () => setIsModalOpen(false);
+
   useEffect(() => {
-    portfolioList.forEach((element) => {
-      if (element.slug === slug) {
-        setData(element);
-      }
-    });
-  }, []);
+    const project = portfolioList.find((p) => p.slug === slug);
+    if (project) {
+      setCurrentProject(project);
+      setCurrentImageIndex(0);
+    }
+  }, [slug]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) =>
+        prevIndex === currentProject?.imgList.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 9000); // Change slide every 3 seconds
+
+    return () => clearInterval(interval); // Cleanup the interval on component unmount
+  }, [currentImageIndex, currentProject]);
+
+  const moveToSlide = (index) => {
+    setCurrentImageIndex(index);
+  };
+
+  if (!currentProject) {
+    return <div>Loading...</div>;
+  }
+
+  const sliderVariants = {
+    hidden: { opacity: 0, x: 100 },
+    visible: { opacity: 1, x: 0 },
+    exit: { opacity: 0, x: -100 },
+  };
+
   return (
     <section className="h-screen p-8">
-      <div className="w-full flex">
-        <div className="w-full md:w-1/2 h-1/2">
-          <div className="flex justify-center items-center">
-            {data && (
+      <div className="w-full flex flex-col md:flex-row">
+        <div className="w-full md:w-1/2 h-1/2 flex justify-center items-center">
+          <div>
+            <motion.div
+              variants={sliderVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              className="cursor-pointer"
+              transition={{
+                x: { type: "spring", stiffness: 100, damping: 100 },
+                opacity: { duration: 2 },
+              }}
+              key={currentImageIndex}
+            >
               <Image
-                src={data.img || ""}
+                onClick={() => openModal(currentProject.imgList[0].img)}
+                src={currentProject.imgList[currentImageIndex].img}
+                alt={currentProject.imgList[currentImageIndex].alt}
                 width={500}
                 height={500}
                 priority
-                alt={data.alt || ""}
-                className=""
               />
-            )}
+            </motion.div>
+            <div className="mt-4 flex justify-center items-center">
+              {currentProject.imgList.map((_, index) => (
+                <span
+                  key={index}
+                  onClick={() => moveToSlide(index)}
+                  className={`cursor-pointer block rounded-full mx-1 ${
+                    currentImageIndex === index ? "bg-blue-500" : "bg-gray-400"
+                  }`}
+                  style={{ width: "10px", height: "10px" }}
+                ></span>
+              ))}
+            </div>
           </div>
         </div>
-        <div className="w-full md:w-1/2 text-white flex">
-          <div className="flex items-center h-full justify-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
-            {data && (
-              <div className="flex flex-col">
-                <div className="flex ">
-                  <h1 className="text-3xl font-bold">{data.name}</h1>
+        <AnimatePresence>
+          {isModalOpen && (
+            <motion.div
+              className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center z-50 p-4"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={closeModal}
+            >
+              <motion.div
+                className="bg-white p-2"
+                initial={{ scale: 0.7 }}
+                animate={{ scale: 1 }}
+                exit={{ scale: 0.7 }}
+              >
+                {/* Using a div container for the zoom effect */}
+                <div className="overflow-hidden">
+                  <img
+                    src={zoomedImageSrc}
+                    alt="Zoomed"
+                    className="max-h-[80vh] max-w-[80vw] cursor-zoom-in hover:scale-110 transition-transform duration-300 ease-in-out"
+                  />
                 </div>
-                <span className="mt-3">{data.desc}</span>
-                <span className="mt-3">{data.frontend}</span>
-                <span className="mt-3">{data.backend}</span>
-              </div>
-            )}
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+        <div className="w-full md:w-1/2 text-white flex">
+          <div className="flex items-center h-full justify-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col">
+              <h1 className="text-3xl font-bold">{currentProject.name}</h1>
+              <span className="mt-3">{currentProject.desc}</span>
+              <span className="mt-3">{currentProject.frontend}</span>
+              <span className="mt-3">{currentProject.backend}</span>
+            </div>
           </div>
         </div>
       </div>
@@ -114,4 +129,4 @@ function PortfolioDetailsComponents({ slug }) {
   );
 }
 
-export default PortfolioDetailsComponents;
+export default PortfolioDetailsComponent;
