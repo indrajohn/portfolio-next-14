@@ -4,17 +4,27 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "generate": "node ./scripts/generate.mjs",
+    "build": "npm run generate && next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
+    "@datastax/astra-db-ts": "^0.1.4",
+    "@langchain/openai": "^0.0.25",
+    "@upstash/redis": "^1.29.0",
+    "ai": "^3.0.15",
+    "dotenv": "^16.4.5",
     "framer-motion": "^11.0.14",
+    "langchain": "^0.1.30",
+    "lucide-react": "^0.363.0",
     "next": "14.1.0",
     "next-themes": "^0.2.1",
     "nodemailer": "^6.9.13",
+    "openai": "^4.30.0",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-markdown": "^9.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^10.0.1",

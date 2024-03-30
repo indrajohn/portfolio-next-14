@@ -89,7 +89,7 @@ const Timeline = () => {
               </div>
 
               {/* Circle Marker */}
-              <div className="flex justify-center items-center z-50 relative mb-4 sm:mb-0">
+              <div className="flex justify-center items-center z-30 relative mb-4 sm:mb-0">
                 <div className="w-[16px] sm:w-[24px] h-[16px] sm:h-[24px] rounded-full bg-[#0ef]"></div>
               </div>
 
