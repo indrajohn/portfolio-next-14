@@ -50,7 +50,6 @@ async function generateEmbeddings() {
       .replace(/ className=(["']).*?\1| className={.*?}/g, "")
       .replace(/^\s*[\r]/gm)
       .trim();
-    console.log(pageContentTrimmed)
     return {
       pageContent: pageContentTrimmed,
       metadata: {
@@ -69,7 +68,6 @@ async function generateEmbeddings() {
       .replace(/ className=(["']).*?\1| className={.*?}/g, "")
       .replace(/^\s*[\r]/gm)
       .trim();
-    console.log(pageContentTrimmed)
     return {
       pageContent: pageContentTrimmed,
       metadata: {
@@ -79,9 +77,6 @@ async function generateEmbeddings() {
   });
 
   doc.push(..._context)
-
-  console.log(doc)
-
 
   const splitter = RecursiveCharacterTextSplitter.fromLanguage("html")
   const splitDocs = await splitter.splitDocuments(doc)

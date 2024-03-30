@@ -9,6 +9,7 @@ import { getVectorStore } from "@/lib/astradb.mjs";
 import { createStuffDocumentsChain } from "langchain/chains/combine_documents";
 import { createRetrievalChain } from "langchain/chains/retrieval";
 import { AIMessage, HumanMessage } from "@langchain/core/messages";
+import { UpstashRedisCache } from "@langchain/community/caches/upstash_redis";
 import { Redis } from "@upstash/redis";
 export async function POST(request) {
   try {
@@ -80,8 +81,6 @@ export async function POST(request) {
       new MessagesPlaceholder("chat_history"),
       ["user", "{input}"],
     ]);
-
-    console.log(prompt);
 
     const combineDocsChain = await createStuffDocumentsChain({
       llm: chatModel,

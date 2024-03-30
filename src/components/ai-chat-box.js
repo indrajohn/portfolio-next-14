@@ -57,8 +57,9 @@ function AIChatBox() {
         </button>
         <div className="flex h-[400px] flex-col rounded border shadow-xl z-50">
           <div className="mt-3 h-full overflow-y-auto px-3" ref={scrollRef}>
-            {messages.map((message) => (
+            {messages.map((message, index) => (
               <div
+                key={index}
                 className={`flex mb-3 items-center ${
                   message.role === "assistant"
                     ? "me-5 justify-start"
