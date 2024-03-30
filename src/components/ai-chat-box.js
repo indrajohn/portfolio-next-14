@@ -18,7 +18,7 @@ function AIChatBox() {
   } = useChat();
   const lastMessageIsUser = messages[messages.length - 1]?.role === "user";
 
-  const [chatBoxOpen, setChatBoxOpen] = useState(true);
+  const [chatBoxOpen, setChatBoxOpen] = useState(false);
   const inputRef = useRef(null);
   const scrollRef = useRef(null);
 
@@ -40,7 +40,15 @@ function AIChatBox() {
         }`}
         onClick={() => setChatBoxOpen(true)}
       >
-        <Bot size={24} />
+        <div className="flex flex-row gap-4 text-start">
+          <div>
+            <Bot size={42} />
+          </div>
+          <div>
+            <p>Talk to me</p>
+            <p>Question? i am here to help</p>
+          </div>
+        </div>
       </button>
 
       <div
@@ -55,7 +63,7 @@ function AIChatBox() {
         >
           <XCircle size={30} className="rounded-full" />
         </button>
-        <div className="flex h-[400px] flex-col rounded border shadow-xl z-50">
+        <div className="flex h-[300px] lg:h-[400px] flex-col rounded border shadow-xl z-50">
           <div className="mt-3 h-full overflow-y-auto px-3" ref={scrollRef}>
             {messages.map((message, index) => (
               <div
@@ -107,17 +115,12 @@ function AIChatBox() {
               </div>
             ))}
             {isLoading && lastMessageIsUser && (
-              <div
-                className={`flex mb-3 items-center me-5 justify-start"
-                }`}
-              >
+              <div className="flex mb-3 items-center me-5 justify-start ">
                 <Bot className="mr-2 flex-none" />
-                <div
-                  className={`rounded-md border px-3 py-2 bg-white text-black"
-                      : "bg-black text-white"
-                  }`}
-                >
-                  Thinking....
+                <div className="flex items-center rounded-md bg-white text-black border px-3 py-2 ">
+                  <div className="w-1 h-1 bg-gray-500 rounded-full animate-wave mr-2"></div>
+                  <div className="w-1 h-1 bg-gray-500 rounded-full animate-wave mr-2"></div>
+                  <div className="w-1 h-1 bg-gray-500 rounded-full animate-wave"></div>
                 </div>
               </div>
             )}

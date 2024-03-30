@@ -53,7 +53,7 @@ export async function POST(request) {
       [
         "user",
         "Given the above conversation, generate a search query to look up in order to get information relevant to the current question. " +
-          "Don't leave out any relevant keywords. Only return the query and no other text",
+          "Don't leave out any relevant keywords. Only return the query and no other text. if no result return no result",
         ,
       ],
     ]);
@@ -104,6 +104,9 @@ export async function POST(request) {
     return new StreamingTextResponse(stream);
   } catch (err) {
     console.log(err);
-    return Response.json({ error: "Internal Server Error" }, { status: 500 });
+    return new StreamingTextResponse([
+      "I am sorry, I couldn't find any relevant information about that.",
+    ]);
+    //return Response.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }

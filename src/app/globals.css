@@ -83,6 +83,32 @@ body {
   @apply text-[#0ef];
 }
 
+@keyframes wave {
+  0% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(5px);
+  }
+
+  50% {
+    transform: translateX(0);
+  }
+
+  75% {
+    transform: translateX(-5px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.animate-wave {
+  animation: wave 1.5s infinite;
+}
+
 @keyframes up-down {
 
   0%,
