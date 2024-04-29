@@ -2,6 +2,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLayoutProvider } from "@/context/myContext";
+import Link from "next/link";
 
 function PortfolioDetailsComponent({ slug }) {
   const { portfolioList } = useLayoutProvider();
@@ -123,11 +124,31 @@ function PortfolioDetailsComponent({ slug }) {
       )}
       <div className="w-full md:w-1/2 text-white flex">
         <div className="flex items-center h-full justify-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col">
+          <div className="flex flex-col gap-2">
             <h1 className="text-3xl font-bold">{currentProject.name}</h1>
             <span className="mt-3">{currentProject.desc}</span>
             <span className="mt-3">{currentProject.frontend}</span>
             <span className="mt-3">{currentProject.backend}</span>
+            <span className="mt-3">{currentProject.backend}</span>
+            <span className="mt-3">{currentProject.spec}</span>
+            <Link
+              href={currentProject.link || "/"}
+              target="_blank"
+              className="p-2  flex items-center justify-center  rounded border-2 border-slate-600 hover:bg-slate-600"
+            >
+              Go To Website
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M19 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h6v2H5v12h12v-6h2zM13 3v2h4.586l-7.793 7.793l1.414 1.414L19 6.414V11h2V3h-8z"
+                />
+              </svg>
+            </Link>
           </div>
         </div>
       </div>
