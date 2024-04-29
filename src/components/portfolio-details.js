@@ -60,6 +60,7 @@ function PortfolioDetailsComponent({ slug }) {
         <AnimatePresence initial={false}>
           <motion.div
             key={currentImageIndex}
+            onClick={() => openModal(safeImage.img)}
             variants={imageVariants}
             initial="enter"
             animate="center"
@@ -71,8 +72,8 @@ function PortfolioDetailsComponent({ slug }) {
             className="w-full flex justify-center"
           >
             <Image
-              src={currentProject.imgList[currentImageIndex].img}
-              alt={currentProject.imgList[currentImageIndex].alt}
+              src={safeImage.img}
+              alt={safeImage.alt}
               width={500}
               height={500}
               priority
@@ -81,14 +82,14 @@ function PortfolioDetailsComponent({ slug }) {
         </AnimatePresence>
         <button
           onClick={() => moveToSlide(currentImageIndex - 1)}
-          className="absolute left-0 top-1/2 -translate-y-1/2 text-white z-20"
+          className="absolute left-0 top-1/2 -translate-y-1/2 text-white z-20 text-4xl"
           aria-label="Previous Image"
         >
           {"<"}
         </button>
         <button
           onClick={() => moveToSlide(currentImageIndex + 1)}
-          className="absolute right-0 top-1/2 -translate-y-1/2 text-white z-20"
+          className="absolute right-0 top-1/2 -translate-y-1/2 text-white z-20 text-4xl"
           aria-label="Next Image"
         >
           {">"}
