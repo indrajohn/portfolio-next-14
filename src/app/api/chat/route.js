@@ -119,6 +119,7 @@ export async function POST(request) {
   try {
     const body = await request.json();
     const messages = body.messages;
+    console.log("message history: ", body);
 
     const chatHistory = messages
       .slice(0, -1)
@@ -205,7 +206,6 @@ export async function POST(request) {
       input: currentMessageContent,
       chat_history: chatHistory,
     });
-    console.log("sini");
     return new StreamingTextResponse(stream);
   } catch (error) {
     console.error(error);
