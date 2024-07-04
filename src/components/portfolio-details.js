@@ -129,7 +129,7 @@ function PortfolioDetailsComponent({ slug }) {
             <span className="mt-3">{currentProject.desc}</span>
             <span className="mt-3">{currentProject.frontend}</span>
             <span className="mt-3">{currentProject.backend}</span>
-            <span className="mt-3">{currentProject.backend}</span>
+            {/* <span className="mt-3">{currentProject.backend}</span> */}
             <span className="mt-3">{currentProject.spec}</span>
             <Link
               href={currentProject.link || "/"}
