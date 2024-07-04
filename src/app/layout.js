@@ -10,6 +10,7 @@ const roboto = Roboto_Condensed({ subsets: ["latin"] });
 export const metadata = {
   title: "Portfolio Indra John",
   description: "Portfolio Indra John",
+  "google-adsense-account": "ca-pub-9104407523380318",
 };
 
 export default function RootLayout({ children }) {
