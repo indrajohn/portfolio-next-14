@@ -76,9 +76,9 @@ function MyContextComponents({ children }) {
 
       link: "https://www.gbimssydney.org.au/",
       desc: "GBI Miracle Service Sydney is a faith-based organization offering various religious services, community outreach programs, and spiritual growth opportunities. For this project, my team and I were commissioned to bolster the organization's digital presence, improve their online communication, and provide technical solutions for a more seamless virtual service experience. ",
-      frontend: "Front end : Next Js",
-      backend: "Backend: Java (Spring boot)",
-      spec: "Java | Spring Boot | Next Js | React Js | Node Js | Javascript | CSS",
+      frontend: "Front end : Vuejs 3",
+      backend: "Backend: Laravel 11",
+      spec: "PHP | Laravel 11 | Vuejs 3 | Inertiajs | Node Js | Javascript | CSS",
     },
     {
       id: 4,
