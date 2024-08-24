@@ -3,8 +3,16 @@ import { useLayoutProvider } from "@/context/myContext";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+
 function PortfolioPage() {
   const { portfolioList } = useLayoutProvider();
+
+  const getRandomDuration = () => {
+    const random = Math.floor(Math.random() * 60) + 80;
+    console.log(random);
+    return 150;
+  };
+
   return (
     <section id="portfolio" data-aos="zoom-down" data-aos-duration="1500">
       <div className="w-full flex">
@@ -24,7 +32,7 @@ function PortfolioPage() {
                   key={index}
                   className="border-white/40 border-2 rounded-lg w-full shadow-lg group z-0"
                 >
-                  <div className="relative w-full h-full min-h-[250px] max-h-[400px]">
+                  <div className="relative w-full h-full min-h-[250px] max-h-[400px] overflow-hidden">
                     <motion.div
                       initial="hidden"
                       animate="visible"
@@ -33,14 +41,29 @@ function PortfolioPage() {
                         x: { type: "spring", stiffness: 100, damping: 100 },
                         opacity: { duration: 2 },
                       }}
+                      className="absolute inset-0 w-full h-full overflow-hidden"
                     >
-                      <Image
-                        src={_portfolio.imgList[0].img || ""}
-                        width={500}
-                        height={500}
-                        className="object-cover absolute top-0 left-0 w-full h-full min-h-[250px] max-h-[400px]"
-                        alt={_portfolio.imgList[0].alt || ""}
-                      />
+                      <div
+                        className="flex flex-col"
+                        style={{
+                          animation: `vertical-scroll ${getRandomDuration()}s linear infinite`,
+                        }}
+                      >
+                        <Image
+                          src={_portfolio.imgList[0].img || ""}
+                          width={500}
+                          height={500}
+                          className="object-cover w-full h-full"
+                          alt={_portfolio.imgList[0].alt || ""}
+                        />
+                        <Image
+                          src={_portfolio.imgList[0].img || ""}
+                          width={500}
+                          height={500}
+                          className="object-cover w-full h-full"
+                          alt={_portfolio.imgList[0].alt || ""}
+                        />
+                      </div>
                     </motion.div>
 
                     <div className="absolute z-0 w-full h-[60%] bottom-0 left-0 bg-[#1f242d]/90 overflow-hidden duration-1000 transform group-hover:h-full">
@@ -49,7 +72,6 @@ function PortfolioPage() {
                           <h1 className="text-xl lg:text-2xl">
                             {_portfolio.name}
                           </h1>
-
                           <h1 className="text-md">{_portfolio.spec}</h1>
                           <div className="grid grid-cols-2 gap-4">
                             <Link
@@ -90,7 +112,7 @@ function PortfolioPage() {
                             <Link
                               href={_portfolio.link || "/"}
                               target="_blank"
-                              className="p-2  flex items-center justify-center  rounded border-2 border-slate-600 hover:bg-slate-600"
+                              className="p-2 flex items-center justify-center rounded border-2 border-slate-600 hover:bg-slate-600"
                             >
                               Go To Website
                               <svg

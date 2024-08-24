@@ -13,19 +13,19 @@ function MyContextComponents({ children }) {
       slug: "euna-italian-restaurant",
       imgList: [
         {
-          img: "/img/portfolio/euna.png",
+          img: "/img/portfolio/euna/home.png",
           alt: "Euna Italian Restaurant",
         },
         {
-          img: "/img/portfolio/euna.png",
+          img: "/img/portfolio/euna/menu.png",
           alt: "Euna Italian Restaurant",
         },
         {
-          img: "/img/portfolio/euna.png",
+          img: "/img/portfolio/euna/reservation.png",
           alt: "Euna Italian Restaurant",
         },
       ],
-      link: "https://demo-euna.indrajohn.tech/",
+      link: "https://demo-euna.indrajohn.com.au",
       desc: "Euna Italian Restaurant is a destination for authentic Italian cuisine, strategically located in the culinary landscape of New Zealand. The restaurant aims to offer a gastronomic experience that transcends the norm, fusing traditional Italian recipes with a touch of modern flair. I had the honor of spearheading a multidimensional project that encompassed brand development, website creation, digital marketing, and customer experience enhancement for Euna.",
       frontend: "Front end : Wordpress",
       backend: "Backend: Wordpress",
@@ -37,19 +37,19 @@ function MyContextComponents({ children }) {
       slug: "armada-orient-furniture",
       imgList: [
         {
-          img: "/img/portfolio/armadaorient.png",
+          img: "/img/portfolio/armadaorient/home.png",
           alt: "Armada Orient",
         },
         {
-          img: "/img/portfolio/armadaorient.png",
+          img: "/img/portfolio/armadaorient/about_us.png",
           alt: "Armada Orient",
         },
         {
-          img: "/img/portfolio/armadaorient.png",
+          img: "/img/portfolio/armadaorient/blog.png",
           alt: "Armada Orient",
         },
       ],
-      link: "https://armadaorient.com/",
+      link: "http://armadaorient.indrajohn.com.au/",
       desc: "In this project, I collaborated with Armada Orient Furniture, a boutique supplier based in Solo, Indonesia, to build their digital presence and streamline their customer experience. Leveraging the company's core values of personalized service and cultural richness, the project involved showcasing their diverse product lines—from antiques and recycled timber to handicrafts and building materials—on an intuitive platform. Additionally, we optimized their supply chain logistics, helping both the company and their clients focus more on what they do best: selling and purchasing quality, authentic furniture and home accessories. This project served as a perfect blend of traditional craftsmanship and modern business solutions.",
       frontend: "Front end : Wordpress",
       backend: "Backend: Wordpress",
@@ -61,15 +61,19 @@ function MyContextComponents({ children }) {
       slug: "gbi-miracle-services-sydney",
       imgList: [
         {
-          img: "/img/portfolio/gbi_miracle_service_sydney.png",
+          img: "/img/portfolio/gbi_miracle/home.png",
           alt: "GBI Miracle Service Sydney",
         },
         {
-          img: "/img/portfolio/gbi_miracle_service_sydney.png",
+          img: "/img/portfolio/gbi_miracle/about.png",
           alt: "GBI Miracle Service Sydney",
         },
         {
-          img: "/img/portfolio/gbi_miracle_service_sydney.png",
+          img: "/img/portfolio/gbi_miracle/contact_us.png",
+          alt: "GBI Miracle Service Sydney",
+        },
+        {
+          img: "/img/portfolio/gbi_miracle/gema.png",
           alt: "GBI Miracle Service Sydney",
         },
       ],
@@ -86,15 +90,19 @@ function MyContextComponents({ children }) {
       slug: "hana-bank-indonesia",
       imgList: [
         {
-          img: "/img/portfolio/hana_bank.png",
+          img: "/img/portfolio/hanabank/hana_bank.png",
           alt: "Hana Bank Indonesia",
         },
         {
-          img: "/img/portfolio/hana_bank.png",
+          img: "/img/portfolio/hanabank/about.png",
           alt: "Hana Bank Indonesia",
         },
         {
-          img: "/img/portfolio/hana_bank.png",
+          img: "/img/portfolio/hanabank/linebank.png",
+          alt: "Hana Bank Indonesia",
+        },
+        {
+          img: "/img/portfolio/hanabank/wealth.png",
           alt: "Hana Bank Indonesia",
         },
       ],
@@ -111,7 +119,7 @@ function MyContextComponents({ children }) {
       slug: "indra-wedding",
       imgList: [
         {
-          img: "/img/portfolio/indra_wedding.png",
+          img: "/img/portfolio/indra_wedding_1.png",
           alt: "Indra Wedding",
         },
         {

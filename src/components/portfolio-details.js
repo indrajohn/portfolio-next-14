@@ -15,9 +15,9 @@ function PortfolioDetailsComponent({ slug }) {
     const project = portfolioList.find((p) => p.slug === slug);
     if (project) {
       setCurrentProject(project);
-      setCurrentImageIndex(0); // Resets to the first image when a new project is loaded
+      setCurrentImageIndex(0);
     } else {
-      setCurrentProject(null); // Ensure no previous project data persists
+      setCurrentProject(null);
     }
   }, [slug, portfolioList]);
 
@@ -27,26 +27,27 @@ function PortfolioDetailsComponent({ slug }) {
         setCurrentImageIndex((prevIndex) =>
           prevIndex === currentProject.imgList.length - 1 ? 0 : prevIndex + 1
         );
-      }, 9000); // Rotate images every 9 seconds
+      }, 9000);
       return () => clearInterval(interval);
     }
   }, [currentProject]);
-
-  if (!currentProject || !currentProject.imgList?.length) {
-    return <div>Loading...</div>;
-  }
 
   const openModal = (imgSrc) => {
     setIsModalOpen(true);
     setZoomedImageSrc(imgSrc);
   };
-  const safeImage =
-    currentProject.imgList[currentImageIndex] || currentProject.imgList[0]; // Fallback to the first image if index is out of bounds
 
   const closeModal = () => setIsModalOpen(false);
 
   const moveToSlide = (index) => {
-    setCurrentImageIndex(index);
+    if (!currentProject?.imgList) return;
+    if (index < 0) {
+      setCurrentImageIndex(currentProject.imgList.length - 1);
+    } else if (index >= currentProject.imgList.length) {
+      setCurrentImageIndex(0);
+    } else {
+      setCurrentImageIndex(index);
+    }
   };
 
   const imageVariants = {
@@ -55,9 +56,16 @@ function PortfolioDetailsComponent({ slug }) {
     exit: { x: -300, opacity: 0 },
   };
 
+  if (!currentProject || !currentProject.imgList?.length) {
+    return <div>Loading...</div>;
+  }
+
+  const safeImage =
+    currentProject.imgList[currentImageIndex] || currentProject.imgList[0];
+
   return (
     <section className="h-screen p-8 flex">
-      <div className="w-full md:w-1/2 h-full flex justify-center items-center relative">
+      <div className="w-full md:w-1/2 h-full flex justify-center items-center relative overflow-hidden">
         <AnimatePresence initial={false}>
           <motion.div
             key={currentImageIndex}
@@ -70,15 +78,28 @@ function PortfolioDetailsComponent({ slug }) {
               x: { type: "spring", stiffness: 300, damping: 30 },
               opacity: { duration: 0.2 },
             }}
-            className="w-full flex justify-center"
+            className="w-full h-full overflow-hidden flex justify-center relative"
           >
-            <Image
-              src={safeImage.img}
-              alt={safeImage.alt}
-              width={500}
-              height={500}
-              priority
-            />
+            {/* Container for infinite scroll */}
+            <div className="flex flex-col animate-scroll">
+              {/* Duplicate the image to create a seamless scroll effect */}
+              <Image
+                src={safeImage.img}
+                alt={safeImage.alt}
+                width={250}
+                height={250}
+                priority
+                className="w-full"
+              />
+              <Image
+                src={safeImage.img}
+                alt={safeImage.alt}
+                width={250}
+                height={250}
+                priority
+                className="w-full"
+              />
+            </div>
           </motion.div>
         </AnimatePresence>
         <button
@@ -106,16 +127,17 @@ function PortfolioDetailsComponent({ slug }) {
             onClick={closeModal}
           >
             <motion.div
-              className="bg-white p-2"
+              className="bg-white p-2 max-h-[90vh] overflow-y-auto"
               initial={{ scale: 0.7 }}
               animate={{ scale: 1 }}
               exit={{ scale: 0.7 }}
+              onClick={(e) => e.stopPropagation()}
             >
               <div className="overflow-hidden">
                 <img
                   src={zoomedImageSrc}
                   alt="Zoomed"
-                  className="max-h-[80vh] max-w-[80vw] cursor-zoom-in hover:scale-110 transition-transform duration-300 ease-in-out"
+                  className=" max-w-[80vw] cursor-zoom-in hover:scale-110 transition-transform duration-300 ease-in-out object-contain"
                 />
               </div>
             </motion.div>
@@ -129,12 +151,11 @@ function PortfolioDetailsComponent({ slug }) {
             <span className="mt-3">{currentProject.desc}</span>
             <span className="mt-3">{currentProject.frontend}</span>
             <span className="mt-3">{currentProject.backend}</span>
-            {/* <span className="mt-3">{currentProject.backend}</span> */}
             <span className="mt-3">{currentProject.spec}</span>
             <Link
               href={currentProject.link || "/"}
               target="_blank"
-              className="p-2  flex items-center justify-center  rounded border-2 border-slate-600 hover:bg-slate-600"
+              className="p-2 flex items-center justify-center rounded border-2 border-slate-600 hover:bg-slate-600"
             >
               Go To Website
               <svg

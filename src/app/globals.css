@@ -162,3 +162,45 @@ div.vertical-line {
     transform: translateY(-5px);
   }
 }
+
+
+@keyframes scroll {
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+
+@keyframes scroll {
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+.animate-scroll {
+  animation: scroll 10s linear infinite;
+}
+
+
+@keyframes vertical-scroll {
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}

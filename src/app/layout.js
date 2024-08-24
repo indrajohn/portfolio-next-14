@@ -16,11 +16,9 @@ export const metadata = {
   author: "Indra John",
   keywords:
     "portfolio, Indra John, full stack developer, API development, Node.js, React.js, web developer, projects, resume, WordPress",
-  viewport: "width=device-width, initial-scale=1.0",
   robots: "index, follow",
   charset: "UTF-8",
   language: "en",
-  themeColor: "#ffffff",
   og: {
     title:
       "Portfolio Indra John | Full Stack Developer | API Development | Node.js | React.js",
