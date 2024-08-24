@@ -7,12 +7,6 @@ import { motion } from "framer-motion";
 function PortfolioPage() {
   const { portfolioList } = useLayoutProvider();
 
-  const getRandomDuration = () => {
-    const random = Math.floor(Math.random() * 60) + 80;
-    console.log(random);
-    return 150;
-  };
-
   return (
     <section id="portfolio" data-aos="zoom-down" data-aos-duration="1500">
       <div className="w-full flex">
@@ -46,7 +40,7 @@ function PortfolioPage() {
                       <div
                         className="flex flex-col"
                         style={{
-                          animation: `vertical-scroll ${getRandomDuration()}s linear infinite`,
+                          animation: `vertical-scroll 150s linear infinite`,
                         }}
                       >
                         <Image
