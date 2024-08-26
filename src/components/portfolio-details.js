@@ -5,7 +5,7 @@ import { useLayoutProvider } from "@/context/myContext";
 import Link from "next/link";
 
 function PortfolioDetailsComponent({ slug }) {
-  const { portfolioList } = useLayoutProvider();
+  const { portfolioList, setChatBoxOpen } = useLayoutProvider();
   const [currentProject, setCurrentProject] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -154,10 +154,15 @@ function PortfolioDetailsComponent({ slug }) {
             <span className="mt-3">{currentProject.spec}</span>
             <Link
               href={currentProject.link || "/"}
-              target="_blank"
+              target={currentProject.chatbot ? "" : "_blank"}
+              onClick={() => {
+                if (currentProject.chatbot) {
+                  setChatBoxOpen(true);
+                }
+              }}
               className="p-2 flex items-center justify-center rounded border-2 border-slate-600 hover:bg-slate-600"
             >
-              Go To Website
+              {currentProject.chatbot ? "Try" : "Go To Website"}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"

@@ -5,8 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 
 function PortfolioPage() {
-  const { portfolioList } = useLayoutProvider();
-
+  const { portfolioList, setChatBoxOpen } = useLayoutProvider();
   return (
     <section id="portfolio" data-aos="zoom-down" data-aos-duration="1500">
       <div className="w-full flex">
@@ -105,10 +104,15 @@ function PortfolioPage() {
                             </Link>
                             <Link
                               href={_portfolio.link || "/"}
-                              target="_blank"
+                              target={_portfolio.chatbot ? "" : "_blank"}
+                              onClick={() => {
+                                if (_portfolio.chatbot) {
+                                  setChatBoxOpen(true);
+                                }
+                              }}
                               className="p-2 flex items-center justify-center rounded border-2 border-slate-600 hover:bg-slate-600"
                             >
-                              Go To Website
+                              {_portfolio.chatbot ? "Try" : "Go To Website"}
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="24"

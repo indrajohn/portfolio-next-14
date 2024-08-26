@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { Bot, SendHorizonal, Trash, XCircle } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import Link from "next/link";
+import { useLayoutProvider } from "@/context/myContext";
 
 function AIChatBox() {
   const {
@@ -18,7 +19,9 @@ function AIChatBox() {
   } = useChat();
   const lastMessageIsUser = messages[messages.length - 1]?.role === "user";
 
-  const [chatBoxOpen, setChatBoxOpen] = useState(false);
+  // const [chatBoxOpen, setChatBoxOpen] = useState(false);
+  const { chatBoxOpen, setChatBoxOpen } = useLayoutProvider();
+
   const inputRef = useRef(null);
   const scrollRef = useRef(null);
 
