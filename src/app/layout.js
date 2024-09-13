@@ -11,7 +11,7 @@ export const metadata = {
   title:
     "Portfolio Indra John | Full Stack Developer | API Development | Node.js | React.js",
   description:
-    "I have over 5 years+ of development experience, including working as a fullstack developer. I can build and consume APIs, set up databases, and love Node.js, WordPress, React.js.",
+    "I have over 3 years+ of development experience, including working as a fullstack developer. I can build and consume APIs, set up databases, and love Node.js, WordPress, React.js.",
   "google-adsense-account": "ca-pub-9104407523380318",
   author: "Indra John",
   keywords:
@@ -23,7 +23,7 @@ export const metadata = {
     title:
       "Portfolio Indra John | Full Stack Developer | API Development | Node.js | React.js",
     description:
-      "I have over 5 years+ of development experience, including working as a fullstack developer. I can build and consume APIs, set up databases, and love Node.js, WordPress, React.js.",
+      "I have over 3 years+ of development experience, including working as a fullstack developer. I can build and consume APIs, set up databases, and love Node.js, WordPress, React.js.",
     type: "website",
     url: "https://www.indrajohn.com.au",
     image: "https://www.indrajohn.com.au/img/og-image.png",

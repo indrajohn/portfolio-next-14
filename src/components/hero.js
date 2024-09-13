@@ -38,9 +38,9 @@ function Hero() {
                 data-aos="fade-right"
                 data-aos-duration="1500"
               >
-                I have over 5 years+ of development experience, including
-                working as a fullstack developer. I can build and consume APIs,
-                set up databases, and love Node.js, WordPress, React.js.
+                I have over 3 years of development experience, including working
+                as a fullstack developer. I can build and consume APIs, set up
+                databases, and love Node.js, WordPress, React.js.
               </span>
               <span className="flex text-[20px]">
                 <a

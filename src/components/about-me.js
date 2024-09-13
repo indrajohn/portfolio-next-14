@@ -36,7 +36,7 @@ function AboutMePage() {
               </div>
 
               <span className="mt-3">
-                As an accomplished Fullstack Developer with over 5 years of
+                As an accomplished Fullstack Developer with over 3 years of
                 expertise in API development, database configuration, and
                 proficiency in Node.js, WordPress, and React.js, I prioritize
                 performance and security in all my projects. I excel in
