@@ -126,7 +126,7 @@ function Hero() {
               </span>
               <div className="my-6">
                 <a
-                  href="/YosephIndraJohnSaputraResume.pdf"
+                  href="/YosephIndraJohnSaputraResume1.pdf"
                   download
                   className="bg-[#0ef] rounded-lg text-[#1f242d] px-4 py-3 text-md font-bold"
                 >
