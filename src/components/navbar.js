@@ -56,7 +56,7 @@ function NavBar() {
 
   useEffect(() => {
     changeNavToLastScroll();
-  }, [changeNavToLastScroll]);
+  }, []);
 
   useEffect(() => {
     if (typeof window !== "undefined") {

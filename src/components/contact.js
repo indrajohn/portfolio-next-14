@@ -148,7 +148,7 @@ function ContactPage() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="bg-teal-400 text-slate-100 px-6 py-2 rounded-full hover:bg-teal-500 focus:outline-none focus:bg-teal-500"
+                  className="bg-teal-600 text-white px-6 py-2 rounded-full hover:bg-teal-700 focus:outline-none focus:bg-teal-700"
                 >
                   {loading ? "Loading..." : "Send"}
                 </button>
