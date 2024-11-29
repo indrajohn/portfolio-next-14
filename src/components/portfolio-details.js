@@ -134,10 +134,22 @@ function PortfolioDetailsComponent({ slug }) {
               onClick={(e) => e.stopPropagation()}
             >
               <div className="overflow-hidden">
-                <img
+                {/* <img
                   src={zoomedImageSrc}
                   alt="Zoomed"
                   className=" max-w-[80vw] cursor-zoom-in hover:scale-110 transition-transform duration-300 ease-in-out object-contain"
+                /> */}
+                <Image
+                  src={zoomedImageSrc}
+                  alt="Zoomed"
+                  className="max-w-[80vw] cursor-zoom-in hover:scale-110 transition-transform duration-300 ease-in-out object-contain"
+                  width={800} // Set an appropriate width
+                  height={600} // Set an appropriate height
+                  quality={90} // Optional: Adjust quality (default is 75)
+                  style={{
+                    objectFit: "contain",
+                  }}
+                  priority // Optional: Optimize for LCP if this is a critical image
                 />
               </div>
             </motion.div>

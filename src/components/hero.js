@@ -48,6 +48,7 @@ function Hero() {
                   href="https://www.facebook.com/indra.jhon.1"
                   target="_blank"
                   data-aos="fade-left"
+                  aria-label="facebook"
                   data-aos-duration={`900`}
                 >
                   <svg
@@ -67,6 +68,7 @@ function Hero() {
                   className="border-2 border-[#0ef] rounded-full ease-in duration-300 hover:cursor-pointer p-1 mx-1 inline-flex justify-center hover:bg-[#90CAF9]"
                   href="https://www.instagram.com/indrajohn92"
                   target="_blank"
+                  aria-label="instagram"
                   data-aos="fade-left"
                   data-aos-duration={`1500`}
                 >
@@ -87,6 +89,7 @@ function Hero() {
                   className="border-2 border-[#0ef] rounded-full ease-in duration-300 hover:cursor-pointer p-1 mx-1 inline-flex justify-center hover:bg-[#90CAF9]"
                   href="https://www.linkedin.com/in/indrajohn/"
                   target="_blank"
+                  aria-label="linkedin"
                   data-aos="fade-left"
                   data-aos-duration={`2000`}
                 >
@@ -108,6 +111,7 @@ function Hero() {
                   href="https://github.com/indrajohn"
                   target="_blank"
                   data-aos="fade-left"
+                  aria-label="github"
                   data-aos-duration={`3000`}
                 >
                   <svg
