@@ -4,7 +4,7 @@ dotenv.config({
 })
 
 import {
-  AstraDB
+  DataAPIClient
 } from "@datastax/astra-db-ts";
 import {
   AstraDBVectorStore
@@ -14,11 +14,11 @@ import {
 } from "@langchain/openai";
 const endpoint = process.env.ASTRA_DB_ENDPOINT || "";
 const token = process.env.ASTRA_DB_APPLICATION_TOKEN || "";
-const collection = process.env.ASTRA_DB_COLLECTION || "";
+const collectionName = process.env.ASTRA_DB_COLLECTION || "";
 
+const client = new DataAPIClient(token);
 
-
-if (!endpoint || !token || !collection) {
+if (!endpoint || !token || !collectionName) {
   throw new Error(
     "Please set ASTRA_DB_ENDPOINT,ASTRA_DB_APPLICATION_TOKEN,ASTRA_DB_COLLECTION environment variables"
   );
@@ -31,7 +31,7 @@ export async function getVectorStore() {
     }), {
       token,
       endpoint,
-      collection,
+      collection: collectionName,
       collectionOptions: {
         vector: {
           dimension: 1536,
@@ -42,6 +42,18 @@ export async function getVectorStore() {
   );
 }
 
+// export async function getEmbeddingsCollection() {
+//   return new AstraDbAdmin(token, endpoint).collection(collection);
+// }
+
 export async function getEmbeddingsCollection() {
-  return new AstraDB(token, endpoint).collection(collection);
+  const db = client.db(endpoint);
+  const collection = db.collection(collectionName);
+
+  // const exists = await db.hasCollection(collectionName);
+  // if (!exists) {
+  // throw new Error(`Collection '${collectionName}' does not exist.`);
+  // }
+
+  return collection;
 }
