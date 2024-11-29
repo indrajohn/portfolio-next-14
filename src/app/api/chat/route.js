@@ -2,6 +2,7 @@ import { ChatOpenAI } from "@langchain/openai";
 import { getVectorStore } from "@/lib/astradb";
 import { UpstashRedisCache } from "@langchain/community/caches/upstash_redis";
 import { Redis } from "@upstash/redis";
+
 export async function POST(request) {
   try {
     const body = await request.json();
@@ -40,20 +41,32 @@ export async function POST(request) {
       });
 
     const context =
-      relevantDocs.map((doc) => doc.page_content).join("\n\n") || "";
+      relevantDocs
+        .map((doc) => {
+          console.log("Retrieved Document:", doc);
+          return doc.pageContent;
+        })
+        .join("\n\n") || "";
+
+    console.log("context: ", context);
 
     // Build a dynamic prompt using the retrieved context
     const systemPrompt = `
-You are tasked with operating as a chatbot for a personal portfolio website.
-Your primary function is to impersonate the site's owner. This requires you to:
-1. Respond as if you are the portfolio owner.
-2. Format responses in Markdown syntax.
-3. Use the context provided below to answer questions accurately.
+          "You are tasked with operating as a chatbot for a personal portfolio website, " +
+          "where your primary function is to impersonate the site's owner. " +
+          "This unique role requires you to respond to inquiries in a manner that suggests " +
+          "you are the owner of the website. It's essential to fully adopt the persona of the " +
+          "website's proprietor during interactions. Please note that when providing answers " +
+          "to users, you should refrain from including links ending in .js. Links should only be " +
+          "used to direct users to specific areas of the portfolio for detailed insights. " +
+          "Additionally, all your responses should be formatted using Markdown syntax. " +
+          "Your objective is to engage with users based on the provided context, ensuring " +
+          "a seamless and informative experience.\n\n" +
 
 ${context ? `Context:\n${context}` : ""}
 `.trim();
 
-    console.log("System Prompt:", systemPrompt);
+    console.log("System Prompt:", context);
 
     // Ensure messages are properly formatted
     const finalMessages = [

@@ -14,6 +14,7 @@ export default function ChatWithAI() {
   const scrollRef = useRef(null);
   const inputRef = useRef(null);
 
+  // Automatically scroll to the bottom when new messages are added
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTo({
@@ -23,6 +24,7 @@ export default function ChatWithAI() {
     }
   }, [messages]);
 
+  // Focus the input field when the chatbox is opened
   useEffect(() => {
     if (chatBoxOpen) {
       inputRef?.current?.focus();
@@ -127,7 +129,23 @@ export default function ChatWithAI() {
         </div>
 
         <div className="flex h-[300px] lg:h-[400px] flex-col rounded-lg border overflow-hidden">
-          <div className="mt-3 h-full overflow-y-auto px-3" ref={scrollRef}>
+          <div
+            className="mt-3 h-full overflow-y-auto px-3 relative"
+            ref={scrollRef}
+          >
+            {/* Welcome message if no chat history */}
+            {messages.length === 0 && (
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center text-gray-500">
+                <p className="text-lg font-semibold">
+                  Welcome to AI Assistant!
+                </p>
+                <p className="text-sm">
+                  Ask me anything about this site to get started.
+                </p>
+              </div>
+            )}
+
+            {/* Render chat messages */}
             {messages.map((message, index) => (
               <div
                 key={index}
@@ -151,6 +169,8 @@ export default function ChatWithAI() {
                 </div>
               </div>
             ))}
+
+            {/* Loading animation */}
             {isLoading && (
               <div className="flex mb-3 items-center justify-start">
                 <Bot className="mr-2 flex-none" />
@@ -159,6 +179,8 @@ export default function ChatWithAI() {
                 </div>
               </div>
             )}
+
+            {/* Error message */}
             {error && (
               <div className="text-red-500 text-center mt-2">{error}</div>
             )}
