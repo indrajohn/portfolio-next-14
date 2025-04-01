@@ -1,5 +1,4 @@
 import AboutMePage from "@/components/about-me";
-import AIChatBox from "@/components/ai-chat-box";
 import ContactPage from "@/components/contact";
 import GoToTopButton from "@/components/go-to-top-button";
 import Hero from "@/components/hero";
