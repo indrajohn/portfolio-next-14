@@ -98,7 +98,7 @@ function NavBar() {
               data-aos="fade-up"
               data-aos-duration={`900`}
             >
-              Indra
+              Yoseph
             </Link>
           </div>
           <div className="hidden md:flex items-center justify-end flex-1 menu-nav">

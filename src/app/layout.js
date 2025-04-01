@@ -4,24 +4,24 @@ import MyContextComponents from "@/context/myContext";
 
 import { Analytics } from "@vercel/analytics/react";
 import Script from "next/script";
-
+import { AOSInit } from "@/context/AOSInit";
 const roboto = Roboto_Condensed({ subsets: ["latin"] });
 
 export const metadata = {
   title:
-    "Portfolio Indra John | Full Stack Developer | API Development | Node.js | React.js",
+    "Portfolio Yoseph Indra John | Full Stack Developer | API Development | Node.js | React.js",
   description:
     "I have over 3 years+ of development experience, including working as a fullstack developer. I can build and consume APIs, set up databases, and love Node.js, WordPress, React.js.",
   "google-adsense-account": "ca-pub-9104407523380318",
-  author: "Indra John",
+  author: "Yoseph Indra John",
   keywords:
-    "portfolio, Indra John, full stack developer, API development, Node.js, React.js, web developer, projects, resume, WordPress",
+    "portfolio, Indra John,Yoseph, full stack developer, API development, Node.js, React.js, web developer, projects, resume, WordPress",
   robots: "index, follow",
   charset: "UTF-8",
   language: "en",
   og: {
     title:
-      "Portfolio Indra John | Full Stack Developer | API Development | Node.js | React.js",
+      "Portfolio Yoseph Indra John | Full Stack Developer | API Development | Node.js | React.js",
     description:
       "I have over 3 years+ of development experience, including working as a fullstack developer. I can build and consume APIs, set up databases, and love Node.js, WordPress, React.js.",
     type: "website",
@@ -34,6 +34,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <AOSInit />
       <Script
         async
         src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9104407523380318"

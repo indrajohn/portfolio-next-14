@@ -4,10 +4,10 @@ import Image from "next/image";
 function Hero() {
   return (
     <section id="home" data-aos="zoom-in" data-aos-duration="1500">
-      <div className="w-full h-[calc(100vh-64px)] flex">
+      <div className="w-full h-[calc(100vh-64px)] flex ">
         <div className="w-full md:w-1/2 text-slate-300 flex">
           <div className="flex items-center h-full justify-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col space-y-4">
+            <div className="flex flex-col space-y-4 gap-4">
               <h2
                 className="text-xl font-bold"
                 data-aos="zoom-out-down"
@@ -26,7 +26,7 @@ function Hero() {
                 Yoseph Indra John Saputra
               </h1>
               <h2
-                className="text-2xl md:text-2xl font-bold"
+                className="text-3xl md:text-3xl font-bold"
                 data-aos="zoom-out-down"
                 data-aos-anchor-placement="top-bottom"
                 data-aos-duration="1500"
@@ -34,7 +34,7 @@ function Hero() {
                 Full stack Developer | API Development | Node.js | React.js
               </h2>
               <span
-                className="mt-3"
+                className="mt-3 text-2xl"
                 data-aos="fade-right"
                 data-aos-duration="1500"
               >
