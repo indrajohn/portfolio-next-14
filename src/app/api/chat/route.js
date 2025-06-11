@@ -33,19 +33,14 @@ export async function POST(request) {
     }
 
     let allChunks;
-    try {
+    if (process.env.VERCEL) {
+      const res = await fetch("https://www.indrajohn.com.au/embeddings.json");
+      if (!res.ok)
+        throw new Error("Failed to fetch embeddings.json from site.");
+      allChunks = await res.json();
+    } else {
       const file = await fs.readFile("public/embeddings.json", "utf-8");
       allChunks = JSON.parse(file);
-      console.log("Loaded and parsed embeddings:", allChunks.length, "chunks");
-    } catch (err) {
-      console.log("Error reading embeddings file:", err.message);
-      return new Response(
-        JSON.stringify({ error: "Unable to load embeddings." }),
-        {
-          status: 500,
-          headers: { "Content-Type": "application/json" },
-        }
-      );
     }
 
     const embeddings = new OpenAIEmbeddings();
