@@ -25,7 +25,7 @@ export async function POST(request) {
 
     // Initialize the ChatOpenAI model with caching
     const chatModel = new ChatOpenAI({
-      modelName: "gpt-4-turbo",
+      modelName: "gpt-3.5-turbo",
       streaming: true,
       verbose: true,
       cache,

@@ -1,87 +1,57 @@
-import dotenv from "dotenv"
+import dotenv from "dotenv";
 dotenv.config({
   path: ".env.local"
-})
+});
 
+import fetch from "node-fetch";
+import * as cheerio from "cheerio";
 import {
   RecursiveCharacterTextSplitter
 } from "langchain/text_splitter";
 import {
-  DirectoryLoader
-} from "langchain/document_loaders/fs/directory";
-import {
-  TextLoader
-} from "langchain/document_loaders/fs/text";
-import {
   getVectorStore,
   getEmbeddingsCollection
-}
-from "../src/lib/astradb.mjs";
+} from "../src/lib/astradb.mjs";
 import {
   Redis
 } from "@upstash/redis";
+
+const SITE_URL = process.env.SITE_URL || "https://www.indrajohn.com.au";
+
 async function generateEmbeddings() {
-  const vectoreStore = await getVectorStore();
+  console.log(`🚀 Fetching site content from: ${SITE_URL}`);
+
+  // 1. Fetch and extract visible text
+  const res = await fetch(SITE_URL);
+  if (!res.ok) throw new Error(`Failed to fetch ${SITE_URL}`);
+  const html = await res.text();
+  const $ = cheerio.load(html);
+  $("script, style, noscript").remove();
+  const visibleText = $("body").text().replace(/\s+/g, " ").trim();
+
+  console.log(`✅ Extracted ${visibleText.length} characters of visible content`);
+
+  // 2. Clear Redis and AstraDB
+  console.log("🧹 Clearing Redis and AstraDB collection...");
   await Redis.fromEnv().flushdb();
+  await (await getEmbeddingsCollection()).deleteMany({});
 
-  (await getEmbeddingsCollection()).deleteMany({})
-  const loader = new DirectoryLoader(
-    "src/components/", {
-      ".js": (path) => new TextLoader(path),
-    },
-    true
-  );
-
-  const loaderContext = new DirectoryLoader(
-    "src/context/", {
-      ".js": (path) => new TextLoader(path),
-    },
-    true
-  );
-
-
-  const doc = (await loader.load()).filter((doc) =>
-    doc.metadata.source.endsWith(".js")
-  ).map((doc) => {
-    const url = doc.metadata.source.replace(/\\/g, "/").split("/src/components")[1] || "/"
-
-    const pageContentTrimmed = doc.pageContent
-      .replace(/^import.*$/gm, "")
-      .replace(/ className=(["']).*?\1| className={.*?}/g, "")
-      .replace(/^\s*[\r]/gm)
-      .trim();
-    return {
-      pageContent: pageContentTrimmed,
-      metadata: {
-        url
-      }
+  // 3. Split and embed
+  const splitter = RecursiveCharacterTextSplitter.fromLanguage("html");
+  const docs = await splitter.splitDocuments([{
+    pageContent: visibleText,
+    metadata: {
+      url: SITE_URL
     }
-  });
+  }, ]);
 
-  const _context = (await loaderContext.load()).filter((doc) =>
-    doc.metadata.source.endsWith(".js")
-  ).map((doc) => {
-    const url = doc.metadata.source.replace(/\\/g, "/").split("/src/components")[1] || "/"
+  const vectorStore = await getVectorStore();
+  await vectorStore.addDocuments(docs);
 
-    const pageContentTrimmed = doc.pageContent
-      .replace(/^import.*$/gm, "")
-      .replace(/ className=(["']).*?\1| className={.*?}/g, "")
-      .replace(/^\s*[\r]/gm)
-      .trim();
-    return {
-      pageContent: pageContentTrimmed,
-      metadata: {
-        url
-      }
-    }
-  });
-
-  doc.push(..._context)
-
-  const splitter = RecursiveCharacterTextSplitter.fromLanguage("html")
-  const splitDocs = await splitter.splitDocuments(doc)
-  await vectoreStore.addDocuments(splitDocs)
-
+  console.log(`✅ Embedded and stored ${docs.length} document chunks into AstraDB`);
 }
 
-generateEmbeddings();
+generateEmbeddings().catch((err) => {
+  console.error("❌ Error generating embeddings:", err);
+  process.exit(1);
+});
