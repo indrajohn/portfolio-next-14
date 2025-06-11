@@ -1,57 +1,54 @@
-import dotenv from "dotenv";
+import dotenv from 'dotenv';
 dotenv.config({
-  path: ".env.local"
+    path: '.env.local'
 });
 
-import fetch from "node-fetch";
-import * as cheerio from "cheerio";
+import fs from 'fs/promises';
+import fetch from 'node-fetch';
+import * as cheerio from 'cheerio';
 import {
-  RecursiveCharacterTextSplitter
-} from "langchain/text_splitter";
+    RecursiveCharacterTextSplitter
+} from 'langchain/text_splitter';
 import {
-  getVectorStore,
-  getEmbeddingsCollection
-} from "../src/lib/astradb.mjs";
-import {
-  Redis
-} from "@upstash/redis";
+    OpenAIEmbeddings
+} from '@langchain/openai';
 
-const SITE_URL = process.env.SITE_URL || "https://www.indrajohn.com.au";
+const SITE_URL = process.env.SITE_URL || 'https://www.indrajohn.com.au';
+const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
+
+if (!OPENAI_API_KEY) {
+    console.error("❌ OPENAI_API_KEY not set in .env.local");
+    process.exit(1);
+}
 
 async function generateEmbeddings() {
-  console.log(`🚀 Fetching site content from: ${SITE_URL}`);
+    console.log(`🌍 Fetching: ${SITE_URL}`);
+    const response = await fetch(SITE_URL);
+    const html = await response.text();
+    const $ = cheerio.load(html);
+    $('script, style, noscript').remove();
+    const text = $('body').text().replace(/\s+/g, ' ').trim();
 
-  // 1. Fetch and extract visible text
-  const res = await fetch(SITE_URL);
-  if (!res.ok) throw new Error(`Failed to fetch ${SITE_URL}`);
-  const html = await res.text();
-  const $ = cheerio.load(html);
-  $("script, style, noscript").remove();
-  const visibleText = $("body").text().replace(/\s+/g, " ").trim();
+    const splitter = RecursiveCharacterTextSplitter.fromLanguage('html');
+    const documents = await splitter.createDocuments([text]);
 
-  console.log(`✅ Extracted ${visibleText.length} characters of visible content`);
+    // ✅ move this inside the function
+    const embeddings = new OpenAIEmbeddings({
+        openAIApiKey: OPENAI_API_KEY
+    });
 
-  // 2. Clear Redis and AstraDB
-  console.log("🧹 Clearing Redis and AstraDB collection...");
-  await Redis.fromEnv().flushdb();
-  await (await getEmbeddingsCollection()).deleteMany({});
+    const docsWithEmbeddings = await Promise.all(
+        documents.map(async (doc) => ({
+            content: doc.pageContent,
+            embedding: await embeddings.embedQuery(doc.pageContent),
+        }))
+    );
 
-  // 3. Split and embed
-  const splitter = RecursiveCharacterTextSplitter.fromLanguage("html");
-  const docs = await splitter.splitDocuments([{
-    pageContent: visibleText,
-    metadata: {
-      url: SITE_URL
-    }
-  }, ]);
-
-  const vectorStore = await getVectorStore();
-  await vectorStore.addDocuments(docs);
-
-  console.log(`✅ Embedded and stored ${docs.length} document chunks into AstraDB`);
+    await fs.writeFile('public/embeddings.json', JSON.stringify(docsWithEmbeddings, null, 2));
+    console.log(`✅ Saved ${docsWithEmbeddings.length} embeddings to public/embeddings.json`);
 }
 
 generateEmbeddings().catch((err) => {
-  console.error("❌ Error generating embeddings:", err);
-  process.exit(1);
+    console.error("❌ Failed:", err);
+    process.exit(1);
 });
