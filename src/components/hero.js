@@ -1,7 +1,28 @@
 "use client";
 import Image from "next/image";
+import Typed from "typed.js";
+import { useEffect, useRef } from "react";
 
 function Hero() {
+  const el = useRef(null);
+  const typedInstance = useRef(null);
+
+  useEffect(() => {
+    typedInstance.current = new Typed(el.current, {
+      strings: [
+        "Full-Stack Developer | Frontend &amp; Backend Development ",
+        "API Design | Cloud  &amp; Database Management | JavaScript  &amp; PHP",
+      ],
+      typeSpeed: 30,
+      backSpeed: 10,
+      backDelay: 2000,
+      loop: true,
+    });
+
+    return () => {
+      typedInstance.current.destroy();
+    };
+  }, []);
   return (
     <section id="home" data-aos="zoom-in" data-aos-duration="1500">
       <div className="w-full h-[calc(100vh-64px)] flex ">
@@ -31,7 +52,7 @@ function Hero() {
                 data-aos-anchor-placement="top-bottom"
                 data-aos-duration="1500"
               >
-                Full stack Developer | API Development | Node.js | React.js
+                <span ref={el}></span>
               </h2>
               <span
                 className="mt-3 text-2xl"
